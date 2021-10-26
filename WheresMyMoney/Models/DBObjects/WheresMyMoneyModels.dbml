@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="WheresMyMoney" Class="WheresMyMoneyModelsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=WheresMyMoney;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="WheresMyMoneyConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="User_Movement" Member="Movements" ThisKey="UserId" OtherKey="UserId" Type="Movement" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Categories" Member="Categories">
+    <Type Name="Category">
+      <Column Name="CategoryId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MovementTypeId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="Category_Movement" Member="Movements" ThisKey="CategoryId" OtherKey="CategoryId" Type="Movement" />
+      <Association Name="MovementType_Category" Member="MovementType" ThisKey="MovementTypeId" OtherKey="MovementTypeId" Type="MovementType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Movements" Member="Movements">
+    <Type Name="Movement">
+      <Column Name="MovementId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="VALUE" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Notes" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="MovementTypeId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="Category_Movement" Member="Category" ThisKey="CategoryId" OtherKey="CategoryId" Type="Category" IsForeignKey="true" />
+      <Association Name="User_Movement" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
+      <Association Name="MovementType_Movement" Member="MovementType" ThisKey="MovementTypeId" OtherKey="MovementTypeId" Type="MovementType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MovementTypes" Member="MovementTypes">
+    <Type Name="MovementType">
+      <Column Name="MovementTypeId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="MovementType_Category" Member="Categories" ThisKey="MovementTypeId" OtherKey="MovementTypeId" Type="Category" />
+      <Association Name="MovementType_Movement" Member="Movements" ThisKey="MovementTypeId" OtherKey="MovementTypeId" Type="Movement" />
+    </Type>
+  </Table>
+</Database>

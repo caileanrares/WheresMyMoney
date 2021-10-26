@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="WheresMyMoneyModels">
+  <DataContextMoniker Name="/WheresMyMoneyModelsDataContext" />
+  <nestedChildShapes>
+    <classShape Id="da3279c2-f80d-468f-ae28-da0fee210608" absoluteBounds="6.5, 5.25, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/WheresMyMoneyModelsDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b0e26d5d-be2d-4ab5-8e85-84b6b4c91dd5" absoluteBounds="6.5150000000000006, 5.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="90575b40-ad35-4135-b874-a978c394a0a3" absoluteBounds="0.875, 1.75, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/WheresMyMoneyModelsDataContext/Category" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ab1ff424-36e5-48a3-a6e8-3a818bf11716" absoluteBounds="0.89000000000000012, 2.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e37cb8f1-f73b-4314-82aa-aecd235e510b" absoluteBounds="6.625, 1.5, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/WheresMyMoneyModelsDataContext/Movement" />
+      <nestedChildShapes>
+        <elementListCompartment Id="577f71ac-c127-4cb4-8a75-098253983dc1" absoluteBounds="6.64, 1.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f8d876da-c8e2-4d59-bb9b-e362761f9169" absoluteBounds="1.125, 4, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/WheresMyMoneyModelsDataContext/MovementType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="89ae5f5e-b0d3-4ea6-afbf-7dce5bb4faf8" absoluteBounds="1.1400000000000001, 4.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.875 : 2.44314697265625); (6.625 : 2.44314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/WheresMyMoneyModelsDataContext/Category/Category_Movement" />
+      <nodes>
+        <classShapeMoniker Id="90575b40-ad35-4135-b874-a978c394a0a3" />
+        <classShapeMoniker Id="e37cb8f1-f73b-4314-82aa-aecd235e510b" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.85937375 : 5.25); (7.85937375 : 3.65549967447917)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/WheresMyMoneyModelsDataContext/User/User_Movement" />
+      <nodes>
+        <classShapeMoniker Id="da3279c2-f80d-468f-ae28-da0fee210608" />
+        <classShapeMoniker Id="e37cb8f1-f73b-4314-82aa-aecd235e510b" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2 : 4); (2 : 3.1362939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/WheresMyMoneyModelsDataContext/MovementType/MovementType_Category" />
+      <nodes>
+        <classShapeMoniker Id="f8d876da-c8e2-4d59-bb9b-e362761f9169" />
+        <classShapeMoniker Id="90575b40-ad35-4135-b874-a978c394a0a3" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.125 : 4.26724562825521); (7.0937475 : 4.26724562825521); (7.0937475 : 3.65549967447917)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/WheresMyMoneyModelsDataContext/MovementType/MovementType_Movement" />
+      <nodes>
+        <classShapeMoniker Id="f8d876da-c8e2-4d59-bb9b-e362761f9169" />
+        <classShapeMoniker Id="e37cb8f1-f73b-4314-82aa-aecd235e510b" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
