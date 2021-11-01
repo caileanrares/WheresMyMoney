@@ -37,10 +37,14 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CategoryId}) |
-            @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+            @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })
         </td>
     </tr>
 }
 
+
+
 </table>
+
+<p>Test de Branch</p>
