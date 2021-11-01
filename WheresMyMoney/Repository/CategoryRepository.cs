@@ -79,6 +79,14 @@ namespace WheresMyMoney.Repository
             }
         }
 
+        public void DeleteCategory(Guid id)
+        {
+            var existingCategory = dbContext.Categories.FirstOrDefault(x => x.CategoryId == id);
+            dbContext.Categories.DeleteOnSubmit(existingCategory);
+            dbContext.SubmitChanges();
+        }
+
+
         private Category MapModelToObject(Models.CategoryModel categoryModel)
         {
             var dbCategory = new Models.DBObjects.Category();

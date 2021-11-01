@@ -106,6 +106,10 @@ namespace WheresMyMoney.Repository
         {
             movementModel.MovementId = Guid.NewGuid();
 
+            if (movementModel.MovementTypeId==dbContext.MovementTypes.FirstOrDefault(x=>x.Name=="Expense").MovementTypeId)
+            {
+                movementModel.VALUE = movementModel.VALUE * -1;
+            }
             dbContext.Movements.InsertOnSubmit(MapModelToDbObject(movementModel));
             dbContext.SubmitChanges();
 
@@ -120,7 +124,14 @@ namespace WheresMyMoney.Repository
             {
                 existingMovement.MovementId = movementModel.MovementId;
                 existingMovement.Date = movementModel.Date;
-                existingMovement.VALUE = movementModel.VALUE;
+
+                if(movementModel.MovementTypeId == dbContext.MovementTypes.FirstOrDefault(x => x.Name == "Expense").MovementTypeId && movementModel.VALUE>0)
+                { existingMovement.VALUE = movementModel.VALUE * -1; }
+                else
+                {
+                    existingMovement.VALUE = movementModel.VALUE;
+                }
+                
                 existingMovement.CategoryId = movementModel.CategoryId;
                 existingMovement.UserId = movementModel.UserId;
                 existingMovement.Notes = movementModel.Notes;

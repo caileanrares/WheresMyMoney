@@ -30,6 +30,7 @@
         <th></th>
     </tr>
 
+@{float total=0;}
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -53,6 +54,19 @@
             @Html.ActionLink("Delete", "Delete", new {id=item.MovementId })
         </td>
     </tr>
+    
+    
+    total = total + item.VALUE;
 }
+<tr>
+    <td><p class="BoldTotal">TOTAL</p></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>
+        <p class="BoldTotal">@total</p>
+    </td>
+    <td></td>
+</tr>
 
 </table>

@@ -13,5 +13,6 @@ namespace WheresMyMoney.ViewModels
         public string Category { get; set; }
         public string Notes { get; set; }    
         public float VALUE { get; set; }
+        
     }
 }

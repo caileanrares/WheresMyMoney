@@ -108,5 +108,28 @@ namespace WheresMyMoney.Controllers
                 return View("EditCategory");
             }
         }
+
+        public ActionResult Delete (Guid id)
+        {
+            Models.CategoryModel categoryToDetelete = categoryRepository.getCategorybyId(id);
+            return View("DeleteCategory", categoryToDetelete);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Guid id, FormCollection collection)
+        {
+            try
+            {
+
+                categoryRepository.DeleteCategory(id);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+
+                return View("DeleteCategory");
+            }
+        }
     }
 }
