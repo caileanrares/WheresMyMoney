@@ -21,11 +21,12 @@ namespace WheresMyMoney.Repository
             this.dbContext = dbContext;
         }
 
-        public List<CategoryModel> GetCategoryByMovementType(Guid id)
+
+        public List<CategoryModel> getAllCategories()
         {
             var categories = new List<CategoryModel>();
 
-            foreach (Models.DBObjects.Category category in dbContext.Categories.Where(x => x.MovementTypeId == id))
+            foreach(var category in dbContext.Categories)
             {
                 categories.Add(MapObjectToModel(category));
             }
@@ -33,22 +34,70 @@ namespace WheresMyMoney.Repository
             return categories;
         }
 
-        public void CreateCategory(CategoryModel categoryModel, Guid MovementTypeId)
+        public List<CategoryModel> GetCategoryByMovementType(Guid id)
         {
-            categoryModel.CategoryId = Guid.NewGuid();
-            categoryModel.MovementTypeId = MovementTypeId;
+            var categories = new List<CategoryModel>();
+
+            foreach (var category in dbContext.Categories.Where(x => x.MovementTypeId == id))
+            {
+                categories.Add(MapObjectToModel(category));
+            }
+
+            return categories;
+        }
+
+        public CategoryModel getCategorybyId(Guid id)
+        {
+            return MapObjectToModel(dbContext.Categories.FirstOrDefault(x => x.CategoryId == id));
+
+        }
+
+
+
+        public void CreateCategory(CategoryModel categoryModel)
+        {
+            //categoryModel.CategoryId = Guid.NewGuid();
+         
             dbContext.Categories.InsertOnSubmit(MapModelToObject(categoryModel));
+            dbContext.SubmitChanges();
+        }
+
+
+        public void UpdateCategory (CategoryModel categoryModel)
+        {
+            var existingCategory = dbContext.Categories.FirstOrDefault(x => x.CategoryId == categoryModel.CategoryId);
+
+
+            if (existingCategory != null)
+                {
+
+                existingCategory.CategoryId = categoryModel.CategoryId;
+                existingCategory.Name = categoryModel.Name;
+                existingCategory.MovementTypeId = categoryModel.MovementTypeId;
+
+                dbContext.SubmitChanges();
+            }
+        }
+
+        private Category MapModelToObject(Models.CategoryModel categoryModel)
+        {
+            var dbCategory = new Models.DBObjects.Category();
+            dbCategory.CategoryId = categoryModel.CategoryId;
+            dbCategory.Name = categoryModel.Name;
+            dbCategory.MovementTypeId = categoryModel.MovementTypeId;
+
+            return dbCategory;
 
         }
 
-        private Category MapModelToObject(CategoryModel categoryModel)
+        private CategoryModel MapObjectToModel(Models.DBObjects.Category dbCategoryModel)
         {
-            throw new NotImplementedException();
-        }
+            var categoryModel = new CategoryModel();
+            categoryModel.CategoryId = dbCategoryModel.CategoryId;
+            categoryModel.Name = dbCategoryModel.Name;
+            categoryModel.MovementTypeId = dbCategoryModel.MovementTypeId;
 
-        private CategoryModel MapObjectToModel(object p)
-        {
-            throw new NotImplementedException();
+            return categoryModel;
         }
     }
 }

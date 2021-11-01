@@ -32,9 +32,16 @@ namespace WheresMyMoney.Repository
             return AllMovementTypes;
         }
 
-        private MovementTypeModel MapObjectToModel(Models.DBObjects.MovementType type)
+
+        
+
+        private MovementTypeModel MapObjectToModel(Models.DBObjects.MovementType dbMovementType)
         {
-            throw new NotImplementedException();
+            var movementType = new MovementTypeModel();
+            movementType.MovementTypeId = dbMovementType.MovementTypeId;
+            movementType.Name = dbMovementType.Name;
+
+            return movementType;
         }
     }
 }

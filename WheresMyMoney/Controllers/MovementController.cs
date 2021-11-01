@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WheresMyMoney.Models;
 using WheresMyMoney.ViewModels;
 
 namespace WheresMyMoney.Controllers
@@ -11,6 +12,8 @@ namespace WheresMyMoney.Controllers
     {
         private Repository.MovementsRepository movementRepository = new Repository.MovementsRepository();
         private Repository.UserRepository userRepository = new Repository.UserRepository();
+        private Repository.CategoryRepository categoryRepository = new Repository.CategoryRepository();
+        private Repository.MovementTypeRepository movementTypeRepository = new Repository.MovementTypeRepository();
         // GET: Movement
         public ActionResult Index()
         {
@@ -34,18 +37,33 @@ namespace WheresMyMoney.Controllers
         }
 
         // GET: Movement/Create
+
         public ActionResult Create()
         {
+            ViewModels.CreateMovementViewModel movementModel = new ViewModels.CreateMovementViewModel()
+            {
+                Movement = new Models.MovementModel(),
+                Category = categoryRepository.getAllCategories(),
+                MovementType = movementTypeRepository.GetAllMovementsTypes()
+            };
             
-           Models.MovementModel movementModel = new Models.MovementModel();
-           Models.UserModel user = userRepository.GetUserByEmail(User.Identity.Name);
-           movementModel.UserId = user.UserId;
-
-            return View("CreateMovement",movementModel);
-
-           
             
+            Models.UserModel user = userRepository.GetUserByEmail(User.Identity.Name);
+            movementModel.Movement.UserId = user.UserId;
+
+            return View("CreateMovement", movementModel);
         }
+        
+        //public ActionResult Create()
+        //{
+                        
+        //   Models.MovementModel movementModel = new Models.MovementModel();
+        //   Models.UserModel user = userRepository.GetUserByEmail(User.Identity.Name);
+        //   movementModel.UserId = user.UserId;
+
+        //    return View("CreateMovement",movementModel);           
+            
+        //}
 
         // POST: Movement/Create
         [HttpPost]
@@ -53,10 +71,18 @@ namespace WheresMyMoney.Controllers
         {
             try
             {
-                Models.MovementModel movementModel = new Models.MovementModel();
+                //Models.MovementModel movementModel = new Models.MovementModel();
+
+                ViewModels.CreateMovementViewModel movementModel = new ViewModels.CreateMovementViewModel()
+                {
+                    Movement = new Models.MovementModel(),
+                    Category = categoryRepository.getAllCategories(),
+                    MovementType = movementTypeRepository.GetAllMovementsTypes()
+                };
+
                 UpdateModel(movementModel);
                 
-                movementRepository.CreateMovement(movementModel);
+                movementRepository.CreateMovement(movementModel.Movement);
 
                 return RedirectToAction("Index");
             }
@@ -69,9 +95,27 @@ namespace WheresMyMoney.Controllers
         // GET: Movement/Edit/5
         public ActionResult Edit(Guid id)
         {
-            Models.MovementModel movementModel = movementRepository.GetMovementById(id);
-            return View("EditMovement",movementModel);
+
+            var allCategories = categoryRepository.getAllCategories();
+
+            ViewModels.CreateMovementViewModel movementModel = new ViewModels.CreateMovementViewModel()
+            {
+                Movement = movementRepository.GetMovementById(id),
+                Category = new List<CategoryModel>(),
+                MovementType = movementTypeRepository.GetAllMovementsTypes()
+            };
+
+            movementModel.Category = allCategories.Where(x => x.MovementTypeId == movementModel.Movement.MovementTypeId);        
+
+            return View("EditMovement", movementModel);
         }
+
+
+
+
+        //Models.MovementModel movementModel = movementRepository.GetMovementById(id);
+        //return View("EditMovement",movementModel); 
+    
 
         // POST: Movement/Edit/5
         [HttpPost]
@@ -79,9 +123,22 @@ namespace WheresMyMoney.Controllers
         {
             try
             {
-                var movementModel = new Models.MovementModel();
+                ViewModels.CreateMovementViewModel movementModel = new ViewModels.CreateMovementViewModel()
+                {
+                    Movement = new Models.MovementModel(),
+                    Category = categoryRepository.getAllCategories(),
+                    MovementType = movementTypeRepository.GetAllMovementsTypes()
+                };
+
                 UpdateModel(movementModel);
-                movementRepository.UpdateMovement(movementModel);
+                
+               
+                movementRepository.UpdateMovement(movementModel.Movement);
+
+
+                //var movementModel = new Models.MovementModel();
+                //UpdateModel(movementModel);
+                //movementRepository.UpdateMovement(movementModel);
 
                 return RedirectToAction("Index");
             }
