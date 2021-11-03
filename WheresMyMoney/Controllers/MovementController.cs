@@ -15,19 +15,70 @@ namespace WheresMyMoney.Controllers
         private Repository.CategoryRepository categoryRepository = new Repository.CategoryRepository();
         private Repository.MovementTypeRepository movementTypeRepository = new Repository.MovementTypeRepository();
         // GET: Movement
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
             if (User.Identity.IsAuthenticated)
+            { 
+
+            var movements = movementRepository.GetAllMovementsByUser(User.Identity.Name);
+            var categories = categoryRepository.getAllCategories();
+            var movementTypes = movementTypeRepository.GetAllMovementsTypes();
+
+            var viewMovements = new List<ViewModels.UserMovementsNamesViewModel>();
+
+            for (var i= 0;i < movements.Count;i++)
             {
-                List<UserMovementsNamesViewModel> movements = movementRepository.GetAllMovementsCustomViewByUser(User.Identity.Name);
-                return View("Index", movements);
+                var viewMovement = new ViewModels.UserMovementsNamesViewModel();
+                viewMovement.MovementId = movements[i].MovementId;
+                viewMovement.Date = movements[i].Date;
+                viewMovement.MovementType = movementTypes.FirstOrDefault(x => x.MovementTypeId == movements[i].MovementTypeId).Name;
+                viewMovement.Category = categories.FirstOrDefault(x => x.CategoryId == movements[i].CategoryId).Name;
+                viewMovement.Notes = movements[i].Notes;
+                viewMovement.VALUE = movements[i].VALUE;
+
+                viewMovements.Add(viewMovement);
+            }
+
+                            
+
+                ViewBag.DateSortParam = string.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+                ViewBag.ValuesSortParam = sortOrder == "value_ascending" ? "value_desc" : "value_ascending";
+
+                if (!string.IsNullOrEmpty(searchString))
+                {
+                    var tempViewMovements = from s in viewMovements select s;
+                    tempViewMovements = viewMovements.Where(z => z.Notes != null);
+                    tempViewMovements = tempViewMovements.Where(x => x.Notes.ToLower().Contains(searchString.ToLower()));
+
+                    viewMovements = tempViewMovements.ToList();
+                                    
+
+                }
+
+
+
+                switch (sortOrder)
+                {
+                    case "date_desc":
+                        viewMovements = viewMovements.OrderByDescending(x => x.Date).ToList();
+                        break;
+                    case "value_ascending":
+                        viewMovements = viewMovements.OrderBy(x => x.VALUE).ToList();
+                        break;
+                    case "value_desc":
+                        viewMovements = viewMovements.OrderByDescending(x => x.VALUE).ToList();
+                        break;
+                    default:
+                        viewMovements = viewMovements.OrderBy(x => x.Date).ToList();
+                        break;
+                }
+
+                return View("Index", viewMovements);
             }
             List<UserMovementsNamesViewModel> noMovements = new List<UserMovementsNamesViewModel>();
             return View("Index", noMovements);
 
-            //List<UserMovementsNamesViewModel> movements = movementRepository.GetAllMovementsCustomView();
-            //List<Models.MovementModel> movements = movementRepository.GetAllMovements();
-            //return View("Index",movements);
+           
         }
 
         // GET: Movement/Details/5

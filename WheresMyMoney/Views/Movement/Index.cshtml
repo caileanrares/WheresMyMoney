@@ -10,10 +10,21 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+            {
+                <p>
+                    Find by Category or Notes: @Html.TextBox("searchString")
+                    <input type="submit" value="Search" />
+    
+                </p>
+            }
+
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
+        <th>            
+            @Html.ActionLink("Date","Index", new {sortOrder=ViewBag.DateSortParam})
+
         </th>
         <th>
             @Html.DisplayNameFor(model => model.MovementType)
@@ -24,8 +35,8 @@
         <th>
             @Html.DisplayNameFor(model => model.Notes)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VALUE)
+        <th>           
+            @Html.ActionLink("Value","Index", new {sortOrder = ViewBag.ValuesSortParam})
         </th>
         <th></th>
     </tr>

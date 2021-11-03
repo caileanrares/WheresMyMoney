@@ -40,6 +40,18 @@ namespace WheresMyMoney.Repository
         }
 
 
+        public List<MovementModel> GetAllMovementsByUser(string email)
+        {
+            List<MovementModel> movements = new List<MovementModel>();
+            foreach (var dbMovement in dbContext.Movements.Where(x=>x.UserId==dbContext.Users.FirstOrDefault(z=>z.Email==email).UserId))
+            {
+                movements.Add(MapDbObjectToModel(dbMovement));
+            }
+
+            return movements;
+        }
+
+
         public List<MovementModel> GetMovementsByUser(Guid id)
         {
             List<MovementModel> Movements = new List<MovementModel>();
