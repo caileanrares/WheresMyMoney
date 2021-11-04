@@ -15,7 +15,7 @@ namespace WheresMyMoney.Controllers
         private Repository.CategoryRepository categoryRepository = new Repository.CategoryRepository();
         private Repository.MovementTypeRepository movementTypeRepository = new Repository.MovementTypeRepository();
         // GET: Movement
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string searchString, string startDate,  string endDate)
         {
             if (User.Identity.IsAuthenticated)
             { 
@@ -53,6 +53,13 @@ namespace WheresMyMoney.Controllers
                     viewMovements = tempViewMovements.ToList();
                                     
 
+                }
+
+               if (!string.IsNullOrEmpty(endDate)&& !string.IsNullOrEmpty(startDate))
+                {
+                    var tempViewMovements = from s in viewMovements select s;
+                    tempViewMovements = viewMovements.Where(x => x.Date >= DateTime.Parse(startDate)&& x.Date<=DateTime.Parse(endDate));
+                    viewMovements = tempViewMovements.ToList();
                 }
 
 

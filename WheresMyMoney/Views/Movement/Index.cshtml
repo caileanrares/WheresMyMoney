@@ -12,18 +12,41 @@
 </p>
 
 @using (Html.BeginForm())
-            {
-                <p>
-                    Find by Category or Notes: @Html.TextBox("searchString")
-                    <input type="submit" value="Search" />
-    
-                </p>
-            }
+{
+    <p>
+        Find by Category or Notes: @Html.TextBox("searchString")
+        <input type="submit" value="Search" />
+
+    </p>
+}
+
+
+@*@using (Html.BeginForm())
+    {
+        <p>
+            Enter start date: @Html.TextBox("searchString", null, new { @class = "datepicker" })
+            <input type="submit" value="Search" />
+
+        </p>
+    }*@
+
+@using (Html.BeginForm())
+{
+
+    @Html.TextBox("StartDate", "Start Date", new { @class = "datepicker" })
+
+    @Html.TextBox("EndDate", "End Date", new { @class = "datepicker" })
+    <input type="submit" value="Search" />
+
+}
+
+
+
 
 <table class="table">
     <tr>
-        <th>            
-            @Html.ActionLink("Date","Index", new {sortOrder=ViewBag.DateSortParam})
+        <th>
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParam })
 
         </th>
         <th>
@@ -35,49 +58,71 @@
         <th>
             @Html.DisplayNameFor(model => model.Notes)
         </th>
-        <th>           
-            @Html.ActionLink("Value","Index", new {sortOrder = ViewBag.ValuesSortParam})
+        <th>
+            @Html.ActionLink("Value", "Index", new { sortOrder = ViewBag.ValuesSortParam })
         </th>
         <th></th>
     </tr>
 
-@{float total=0;}
-@foreach (var item in Model) {
+    @{float total = 0;}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovementType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VALUE)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MovementId }) |
+                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                @Html.ActionLink("Delete", "Delete", new { id = item.MovementId })
+            </td>
+        </tr>
+
+
+        total = total + item.VALUE;
+    }
     <tr>
+        <td><p class="BoldTotal">TOTAL</p></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td>
-            @Html.DisplayFor(modelItem => item.Date)
+            <p class="BoldTotal">@total</p>
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MovementType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VALUE)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MovementId }) |
-            @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-            @Html.ActionLink("Delete", "Delete", new {id=item.MovementId })
-        </td>
+        <td></td>
     </tr>
-    
-    
-    total = total + item.VALUE;
-}
-<tr>
-    <td><p class="BoldTotal">TOTAL</p></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>
-        <p class="BoldTotal">@total</p>
-    </td>
-    <td></td>
-</tr>
 
 </table>
+
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+
+@section scripts {
+
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-2:+5",
+                showOn: "both",
+                buttonText: "Select"
+            });
+        })
+    </script>
+}
