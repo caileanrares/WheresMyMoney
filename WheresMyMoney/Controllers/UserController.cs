@@ -7,6 +7,9 @@ using WheresMyMoney.Repository;
 
 namespace WheresMyMoney.Controllers
 {
+
+    [Authorize(Roles = "User")]
+
     public class UserController : Controller
     {
         Repository.UserRepository userRepository = new Repository.UserRepository();

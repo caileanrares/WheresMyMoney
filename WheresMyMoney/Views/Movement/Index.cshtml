@@ -1,43 +1,40 @@
 ﻿@model IEnumerable<WheresMyMoney.ViewModels.UserMovementsNamesViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Your Movements";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>These are your Movements</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-danger btn-lg" })
+    @Html.ActionLink("View All", "Index", new { movementType = ViewBag.All }, new { @class = "btn btn-primary btn-lg" })
+    @Html.ActionLink("View only Expenses", "Index", new { movementType = ViewBag.Expense }, new { @class = "btn btn-primary btn-lg" })
+    @Html.ActionLink("View only Incomes", "Index", new { movementType = ViewBag.Income }, new { @class = "btn btn-primary btn-lg" })
 </p>
 
 @using (Html.BeginForm())
 {
     <p>
         Find by Category or Notes: @Html.TextBox("searchString")
-        <input type="submit" value="Search" />
+        <input type="submit" value="Search" class="btn btn-primary" />
 
     </p>
 }
 
 
-@*@using (Html.BeginForm())
-    {
-        <p>
-            Enter start date: @Html.TextBox("searchString", null, new { @class = "datepicker" })
-            <input type="submit" value="Search" />
 
-        </p>
-    }*@
 
 @using (Html.BeginForm())
 {
-
+<p>
+    Find by date interval: 
     @Html.TextBox("StartDate", "Start Date", new { @class = "datepicker" })
 
     @Html.TextBox("EndDate", "End Date", new { @class = "datepicker" })
-    <input type="submit" value="Search" />
-
+    <input type="submit" value="Search" class="btn btn-primary" />
+</p>
 }
 
 
@@ -120,8 +117,8 @@
                 changeMonth: true,
                 changeYear: true,
                 yearRange: "-2:+5",
-                showOn: "both",
-                buttonText: "Select"
+                /*showOn: "both",*/
+                /*buttonText: "Select"*/
             });
         })
     </script>

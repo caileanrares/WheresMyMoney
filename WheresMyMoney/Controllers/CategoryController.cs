@@ -7,6 +7,7 @@ using System.Web.Mvc;
 namespace WheresMyMoney.Controllers
     
 {
+    [Authorize(Roles = "User")]
     public class CategoryController : Controller
     {
         private Repository.CategoryRepository categoryRepository = new Repository.CategoryRepository();

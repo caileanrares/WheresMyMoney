@@ -23,10 +23,25 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("View Movements", "Index", "Movement")</li>
-                    <li>@Html.ActionLink("View Categories", "Index", "Category")</li>
+                    <li>
+                        @if (User.IsInRole("User"))
+                        {
+                    @Html.ActionLink("View Movements", "Index", "Movement")
+                        }
+                    </li>
+                    <li>
+                    @if (User.IsInRole("User"))
+                    {
+                    @Html.ActionLink("View Categories", "Index", "Category")
+                    }
+                    </li>
 
-                    <li>@Html.ActionLink("Create User", "Create", "User")</li>
+                    <li>
+                        @if (User.IsInRole("User"))
+                        {
+                    @Html.ActionLink("Create User", "Create", "User")
+                        }
+                    </li>
 
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>

@@ -8,6 +8,7 @@ using WheresMyMoney.ViewModels;
 
 namespace WheresMyMoney.Controllers
 {
+    [Authorize(Roles = "User")]
     public class MovementController : Controller
     {
         private Repository.MovementsRepository movementRepository = new Repository.MovementsRepository();
@@ -15,7 +16,7 @@ namespace WheresMyMoney.Controllers
         private Repository.CategoryRepository categoryRepository = new Repository.CategoryRepository();
         private Repository.MovementTypeRepository movementTypeRepository = new Repository.MovementTypeRepository();
         // GET: Movement
-        public ActionResult Index(string sortOrder, string searchString, string startDate,  string endDate)
+        public ActionResult Index(string sortOrder, string searchString, string startDate,  string endDate, string movementType)
         {
             if (User.Identity.IsAuthenticated)
             { 
@@ -28,7 +29,7 @@ namespace WheresMyMoney.Controllers
 
             for (var i= 0;i < movements.Count;i++)
             {
-                var viewMovement = new ViewModels.UserMovementsNamesViewModel();
+                var viewMovement = new ViewModels.UserMovementsNamesViewModel(); 
                 viewMovement.MovementId = movements[i].MovementId;
                 viewMovement.Date = movements[i].Date;
                 viewMovement.MovementType = movementTypes.FirstOrDefault(x => x.MovementTypeId == movements[i].MovementTypeId).Name;
@@ -43,14 +44,39 @@ namespace WheresMyMoney.Controllers
 
                 ViewBag.DateSortParam = string.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
                 ViewBag.ValuesSortParam = sortOrder == "value_ascending" ? "value_desc" : "value_ascending";
+                ViewBag.Expense = "Expense";
+                ViewBag.Income = "Income";
+
+                switch (movementType)
+                {
+                    case "Income":
+                        var tempViewMovementsIncome = from s in viewMovements select s;
+                        tempViewMovementsIncome = viewMovements.Where(x => x.MovementType == "Income");
+                        viewMovements = tempViewMovementsIncome.ToList();
+                        break;
+                    case "Expense":
+                        var tempViewMovementsExpense = from s in viewMovements select s;
+                        tempViewMovementsExpense = viewMovements.Where(x => x.MovementType == "Expense");
+                        viewMovements = tempViewMovementsExpense.ToList();
+                        break;
+                }
+                
+                
 
                 if (!string.IsNullOrEmpty(searchString))
                 {
-                    var tempViewMovements = from s in viewMovements select s;
-                    tempViewMovements = viewMovements.Where(z => z.Notes != null);
-                    tempViewMovements = tempViewMovements.Where(x => x.Notes.ToLower().Contains(searchString.ToLower()));
+                    var viewMovementsNotes = from s in viewMovements select s;
+                    viewMovementsNotes = viewMovements.Where(z => z.Notes != null);
+                    viewMovementsNotes = viewMovementsNotes.Where(x => x.Notes.ToLower().Contains(searchString.ToLower()));
 
-                    viewMovements = tempViewMovements.ToList();
+
+                    var viewMovementsCategory = from c in viewMovements select c;
+                    viewMovementsCategory = viewMovements.Where(x => x.Category.ToLower().Contains(searchString.ToLower()));
+                   
+
+                    viewMovements = viewMovementsNotes.ToList();
+                    foreach(var mov in viewMovementsCategory)
+                    { viewMovements.Add(mov); };    
                                     
 
                 }
