@@ -8,25 +8,57 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>About</h2>
-        <p>
-            <b>Where's My Money?</b> allows you to keep track of your incomes and expenses.
-        </p>
-       
-    </div>
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            To start using this amazing app, first you have to
-            @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-default" })
-        </p>
-             
+    @if (User.IsInRole("User"))
+    {
+        <div class="col-md-4">
+            <h2>About</h2>
+            <p>
+                <b>Where's My Money?</b> allows you to keep track of your incomes and expenses.
+            </p>
+        </div>
 
-    </div>
-    <div class="col-md-4">
-        <h2>I'am a New User</h2>
-        <p>If you don't already have an account, you can create one here: </p>
-        <p> @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-default" })</p>
-    </div>
+
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <p>
+                Here you can see all your Incomes and Expenses
+                <br /><br />
+                @Html.ActionLink("View Movements", "Index", "Movement", routeValues: null, htmlAttributes: new { @class = "btn btn-warning" })
+            </p>
+        </div>
+
+
+        <div class="col-md-4">
+            <h2>New Income or Expense</h2>
+            <p>Here you can create a new entry for your daily expenses or incomes</p>
+            <p> @Html.ActionLink("Create Movement", "Create", "Movement", routeValues: null, htmlAttributes: new {@class = "btn btn-warning" })</p>
+        </div>
+    }
+    else
+    {
+
+        <div class="col-md-4">
+            <h2>About</h2>
+            <p>
+                <b>Where's My Money?</b> allows you to keep track of your incomes and expenses.
+            </p>
+        </div>
+
+
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <p>
+                To start using this amazing app, first you have to Log in
+               <p> @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-warning" })</p>
+            </p>
+        </div>
+
+
+        <div class="col-md-4">
+            <h2>I'am a New User</h2>
+            <p>If you don't already have an account, you can create one here: </p>
+            <p> @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-warning" })</p>
+        </div>
+
+    }
 </div>

@@ -37,3 +37,26 @@ textarea {
 .homeTitle {
     color: #FFFFFF !important;
 }
+
+.marginLeftViewMovements {
+    margin-left : 37px;
+}
+
+.marginContainerViewMovements
+{
+    padding-left:0px;
+    margin-bottom: 18px;
+}
+
+.marginButtonsViewMovements {
+    margin-right: 20px;
+}
+
+.searchField {
+    padding:4px;
+    border-radius: 4px;
+}
+
+.widthCreate{
+    width:100%;
+}

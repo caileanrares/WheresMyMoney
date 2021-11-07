@@ -1,11 +1,11 @@
 ﻿@model WheresMyMoney.ViewModels.CreateCategoryViewModel
 
 @{
-    ViewBag.Title = "EditCategory";
+    ViewBag.Title = "Edit Category";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>EditCategory</h2>
+<h2>Edit Category</h2>
 
 
 @using (Html.BeginForm())
@@ -13,7 +13,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>CategoryModel</h4>
+       
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -51,7 +51,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default btn-lg" })
 </div>
 
 @section Scripts {
