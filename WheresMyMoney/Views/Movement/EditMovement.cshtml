@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>EditMovement</h2>
+<h2>Edit Movement</h2>
 
 
 @using (Html.BeginForm())
@@ -13,30 +13,26 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>MovementModel</h4>
+    
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Movement.MovementId, htmlAttributes: new { @class = "control-label col-md-2" })
+        @*@Html.LabelFor(model => model.Movement.MovementId, htmlAttributes: new { @class = "control-label col-md-2" })*@
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Movement.MovementId, new { htmlAttributes = new { @class = "form-control", @readonly="true" } })
+            @Html.EditorFor(model => model.Movement.MovementId, new { htmlAttributes = new { @class = "form-control", @readonly="true", @type="hidden" } })
             @Html.ValidationMessageFor(model => model.Movement.Date, "", new { @class = "text-danger" })
         </div>
     </div>
 
 
 
-
-
-
-
     <div class="form-group">
         @Html.LabelFor(model => model.Movement.Date, htmlAttributes: new { @class = "control-label col-md-2 " })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Movement.Date, new { htmlAttributes = new { @class = "datepicker searchField widthCreate" } })
+            @Html.EditorFor(model => model.Movement.Date, new {htmlAttributes = new { @class = "datepicker searchField widthCreate", @Value = Model.Movement.Date.ToString("yyyy/MM/dd") } })
             @Html.ValidationMessageFor(model => model.Movement.Date, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -51,19 +47,12 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Movement.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+        @*@Html.LabelFor(model => model.Movement.UserId, htmlAttributes: new { @class = "control-label col-md-2" })*@
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Movement.UserId, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+            @Html.EditorFor(model => model.Movement.UserId, new { htmlAttributes = new { @class = "form-control", @readonly = "true", @type="hidden" } })
             @Html.ValidationMessageFor(model => model.Movement.UserId, "", new { @class = "text-danger" })
         </div>
     </div>
-
-
-
-
-
-
-
 
 
 
@@ -106,7 +95,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Update" class="btn btn-default" />
         </div>
     </div>
 </div>

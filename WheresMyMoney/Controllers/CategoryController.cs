@@ -14,7 +14,7 @@ namespace WheresMyMoney.Controllers
         private Repository.MovementTypeRepository movementTypeRepository = new Repository.MovementTypeRepository();
 
         // GET: Category
-        public ActionResult Index()
+        public ActionResult Index(string movementType)
         {
             List<Models.CategoryModel> categories = categoryRepository.getAllCategories();
             List<Models.MovementTypeModel> Types = movementTypeRepository.GetAllMovementsTypes();
@@ -29,6 +29,23 @@ namespace WheresMyMoney.Controllers
                 categoryViewModel.MovementTypeName = Types.FirstOrDefault(x => x.MovementTypeId == category.MovementTypeId).Name;
 
                 catergoriesViewModel.Add(categoryViewModel);
+            }
+            ViewBag.Expense = "Expense";
+            ViewBag.Income = "Income";
+
+            switch (movementType)
+            {
+                case "Income":
+                    var tempCategoriesIncome = from s in catergoriesViewModel select s;
+                    tempCategoriesIncome = catergoriesViewModel.Where(x => x.MovementTypeName == "Income");
+                    catergoriesViewModel = tempCategoriesIncome.ToList();
+                    break;
+
+                    case "Expense":
+                    var tempCategoriesExpense = from s in catergoriesViewModel select s;
+                    tempCategoriesExpense = catergoriesViewModel.Where(x => x.MovementTypeName == "Expense");
+                    catergoriesViewModel = tempCategoriesExpense.ToList();
+                    break;
             }
 
             return View("Index", catergoriesViewModel);

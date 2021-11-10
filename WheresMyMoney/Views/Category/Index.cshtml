@@ -7,9 +7,15 @@
 
 <h2>Categories already defined</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-danger btn-lg" })
-</p>
+<div class="container-fluid marginContainerViewMovements">
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-danger btn-lg marginButtonsViewMovements" })
+    @Html.ActionLink("View All", "Index", new { movementType = ViewBag.All }, new { @class = "btn btn-default btn-lg marginButtonsViewMovements" })
+    @Html.ActionLink("View only Expenses", "Index", new { movementType = ViewBag.Expense }, new { @class = "btn btn-default btn-lg marginButtonsViewMovements" })
+    @Html.ActionLink("View only Incomes", "Index", new { movementType = ViewBag.Income }, new { @class = "btn btn-default btn-lg marginButtonsViewMovements" })
+</div>
+
+
+
 <table class="table">
     <tr>
         <th>

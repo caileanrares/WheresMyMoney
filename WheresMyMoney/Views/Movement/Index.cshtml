@@ -29,7 +29,7 @@
 @using (Html.BeginForm())
 {
 <p>
-    Find by date interval: 
+    Filter by date interval: 
     @Html.TextBox("StartDate", "Start Date", new { @class = "datepicker marginLeftViewMovements searchField" })
 
     @Html.TextBox("EndDate", "End Date", new { @class = "datepicker searchField" })
@@ -56,7 +56,7 @@
             @Html.DisplayNameFor(model => model.Notes)
         </th>
         <th>
-            @Html.ActionLink("Value", "Index", new { sortOrder = ViewBag.ValuesSortParam })
+            @Html.ActionLink("Value [Lei]", "Index", new { sortOrder = ViewBag.ValuesSortParam })
         </th>
         <th></th>
     </tr>

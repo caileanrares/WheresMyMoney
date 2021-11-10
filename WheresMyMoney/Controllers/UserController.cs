@@ -45,7 +45,8 @@ namespace WheresMyMoney.Controllers
                 userModel.Email = User.Identity.Name;
                 userRepository.CreateUser(userModel);
 
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return View("~/Views/Home/Index.cshtml");
             }
             catch
             {
