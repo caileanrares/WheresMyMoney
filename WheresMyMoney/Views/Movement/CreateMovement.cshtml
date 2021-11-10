@@ -29,7 +29,7 @@
 
 
         <div class="form-group">
-            @*@Html.LabelFor(model => model.Movement.VALUE, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            
             @Html.Label("Value [lei]", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Movement.VALUE, new { htmlAttributes = new { @class = "form-control searchField widthCreate" } })
@@ -38,7 +38,7 @@
         </div>
 
         <div class="form-group">
-            @*@Html.LabelFor(model => model.Movement.UserId, htmlAttributes: new { @class = "control-label col-md-2",type="hidden" })*@
+           
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Movement.UserId, new { htmlAttributes = new { @class = "form-control searchField widthCreate", @readonly = "true",type="hidden" } })
                 @Html.ValidationMessageFor(model => model.Movement.UserId, "", new { @class = "text-danger" })

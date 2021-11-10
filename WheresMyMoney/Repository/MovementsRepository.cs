@@ -168,7 +168,7 @@ namespace WheresMyMoney.Repository
         {
             List<UserMovementsNamesViewModel>  userMovementsNamesViewModel = new List<UserMovementsNamesViewModel>();
             List<MovementModel> AllMovements = GetAllMovements();
-            //UserMovementsNamesViewModel tempNewModel = new UserMovementsNamesViewModel();
+           
 
 
 
@@ -195,9 +195,7 @@ namespace WheresMyMoney.Repository
             List<MovementModel> AllMovements = GetMovementsByUser(dbContext.Users.FirstOrDefault(x => x.Email ==
             Email).UserId);
 
-            //Guid aGuid = new Guid("457D7162-5370-4C2D-B61C-EFFDE897B20");
-            //List<MovementModel> AllMovements = GetMovementsByUser(aGuid);
-            //UserMovementsNamesViewModel tempNewModel = new UserMovementsNamesViewModel();
+           
 
 
             for (var i = 0; i < AllMovements.Count; i++)

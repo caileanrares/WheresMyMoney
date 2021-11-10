@@ -138,25 +138,13 @@ namespace WheresMyMoney.Controllers
             return View("CreateMovement", movementModel);
         }
         
-        //public ActionResult Create()
-        //{
-                        
-        //   Models.MovementModel movementModel = new Models.MovementModel();
-        //   Models.UserModel user = userRepository.GetUserByEmail(User.Identity.Name);
-        //   movementModel.UserId = user.UserId;
-
-        //    return View("CreateMovement",movementModel);           
-            
-        //}
-
-        // POST: Movement/Create
+        
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
             try
             {
-                //Models.MovementModel movementModel = new Models.MovementModel();
-
+               
                 ViewModels.CreateMovementViewModel movementModel = new ViewModels.CreateMovementViewModel()
                 {
                     Movement = new Models.MovementModel(),
@@ -197,8 +185,7 @@ namespace WheresMyMoney.Controllers
 
 
 
-        //Models.MovementModel movementModel = movementRepository.GetMovementById(id);
-        //return View("EditMovement",movementModel); 
+       
     
 
         // POST: Movement/Edit/5
@@ -219,10 +206,6 @@ namespace WheresMyMoney.Controllers
                
                 movementRepository.UpdateMovement(movementModel.Movement);
 
-
-                //var movementModel = new Models.MovementModel();
-                //UpdateModel(movementModel);
-                //movementRepository.UpdateMovement(movementModel);
 
                 return RedirectToAction("Index");
             }
