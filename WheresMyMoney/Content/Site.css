@@ -34,6 +34,12 @@ textarea {
     height:500px;
 }
 
+.aboutJumbo {
+    background-image: url("../Content/images/piggy_bank2.jpg");
+    background-size: cover;
+    height: 500px;
+}
+
 .homeTitle {
     color: #FFFFFF !important;
 }
@@ -59,4 +65,11 @@ textarea {
 
 .widthCreate{
     width:100%;
+}
+
+.textAbout{
+    padding:5px;
+    margin-top:5px;
+    margin-bottom:10px;
+   /* font-size:large;*/
 }
