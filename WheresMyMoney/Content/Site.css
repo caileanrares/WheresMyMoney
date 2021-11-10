@@ -73,3 +73,17 @@ textarea {
     margin-bottom:10px;
    /* font-size:large;*/
 }
+
+.contactAdress{
+    padding: 25px;
+    padding-top: 100px;
+}
+
+.contactHarta {
+
+    width:600px;
+    height:350px;
+    border-radius:10px;
+    border: 1px solid black;
+     
+}
