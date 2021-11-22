@@ -19,9 +19,9 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model =>model.category.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model =>model.category.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" ,})*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.category.CategoryId, new { htmlAttributes = new { @class = "form-control", @readonly="true" } })
+                @Html.EditorFor(model => model.category.CategoryId, new { htmlAttributes = new { @class = "form-control", @readonly="true", @type = "hidden" } })
                 @Html.ValidationMessageFor(model => model.category.CategoryId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -37,7 +37,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.category.MovementTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.category.MovementTypeId, new SelectList(Model.type,"MovementTypeId","Name"),"Select Type", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.category.MovementTypeId, new SelectList(Model.type,"MovementTypeId","Name"),"Select Type", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.category.MovementTypeId, "", new { @class = "text-danger" })
             </div>
         </div>

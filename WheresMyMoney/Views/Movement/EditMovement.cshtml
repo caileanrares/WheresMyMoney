@@ -59,10 +59,22 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Movement.MovementTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            
+
             @*@Html.DropDownListFor(model => model.Movement.MovementTypeId, new SelectList(Model.MovementType, "MovementTypeId", "Name"), "Select movement Type", new { htmlAttributes = new { @class = "form-select form-select-lg mb-3" }, @readonly = "true" })*@
-            
-            @Html.EditorFor(model => model.Movement.MovementTypeId, new { htmlAttributes = new { @class = "form-control", @readonly="true", @value="2"} })
+
+            @Html.EditorFor(model => model.Movement.MovementTypeId, new { htmlAttributes = new { @class = "form-control", @type="hidden"} })
+
+
+            @if (Model.Movement.MovementTypeId == new Guid("2CE50278-AF60-4A9E-B86B-4D09E7349B22"))
+            {
+                @Html.TextBox("Income", "Income", new { @class = "form-control", @readonly = "true"  });
+            }
+            else
+            {
+                @Html.TextBox("Expense","Expense", new { @class = "form-control", @readonly = "true" })
+            }
+
+
             @Html.ValidationMessageFor(model => model.Movement.MovementTypeId, "", new { @class = "text-danger" })
         </div>
     </div>
